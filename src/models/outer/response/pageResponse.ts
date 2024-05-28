@@ -3,4 +3,4 @@ export type PageResponse<T> = {
   limit: number;
   page_number: number;
   movies: T[];
-}
+};

@@ -1,6 +1,6 @@
-import { fetchApis } from "@/utils/fetchApi";
-import { MovieResponse } from "@/models/response/movieResponse";
-import { ResultResponse } from "@/models/response/resultResponse";
+import { fetchApis } from '@/utils/fetchApi';
+import { ResultResponse } from '@/models/outer/response/resultResponse';
+import { MovieDetailResponse } from '@/models/outer/response/movieDetailResponse';
 
 export async function GET(
   _: Request,
@@ -12,8 +12,8 @@ export async function GET(
 ) {
   const { id } = params;
 
-  const res = await fetchApis.movie.get<ResultResponse<MovieResponse>>(
-    "movie_details.json",
+  const res = await fetchApis.movie.get<ResultResponse<MovieDetailResponse>>(
+    'movie_details.json',
     {
       params: {
         movie_id: id,
@@ -21,5 +21,11 @@ export async function GET(
     },
   );
 
-  return Response.json(res);
+  const { data, status, status_message } = res;
+
+  if (status !== 'ok') {
+    return new Response(status_message, { status: 500 });
+  }
+
+  return Response.json(data.movie);
 }

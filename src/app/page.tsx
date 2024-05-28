@@ -1,19 +1,18 @@
-import { fetchApis } from "@/utils/fetchApi";
-import { ResultResponse } from "@/models/response/resultResponse";
-import { PageResponse } from "@/models/response/pageResponse";
-import { MovieResponse } from "@/models/response/movieResponse";
-import MovieList from "@/components/movie_list";
+import MovieList from '@/app/_components/MovieList';
+import { apiMovies } from '@/apis/movies';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Home - CheoluBak Portfolio',
+  description: 'CheoluBak Portfolio Page. The movie list page.',
+};
 
 export default async function Home() {
-  const movies =
-    await fetchApis.dynamic.get<ResultResponse<PageResponse<MovieResponse>>>(
-      "movies",
-    );
+  const movies = await apiMovies.getList(1);
 
-  console.log(movies);
   return (
     <main>
-      <MovieList />
+      <MovieList movies={movies} />
     </main>
   );
 }

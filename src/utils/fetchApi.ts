@@ -1,6 +1,6 @@
-import { FetchApiError } from "@/utils/fetchApiError";
-import { parseUrl } from "@/utils/urlHelper";
-import { parseResponse } from "@/utils/responseHelper";
+import { FetchApiError } from '@/utils/fetchApiError';
+import { parseUrl } from '@/utils/urlHelper';
+import { parseResponse } from '@/utils/responseHelper';
 
 type RequestOptions = {
   params?: Record<string, any>;
@@ -8,9 +8,9 @@ type RequestOptions = {
 
 const customFetch = (url: string, options?: RequestInit) => {
   return fetch(url, {
-    credentials: "include",
+    credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...options?.headers,
     },
     ...options,
@@ -26,65 +26,65 @@ const fetchApi = (baseUrl: string) => {
     async get<T>(path: string, options?: RequestOptions) {
       const res = await customFetch(parseUrl(baseUrl, path, options?.params), {
         ...options,
-        method: "GET",
+        method: 'GET',
       });
 
       if (!res.ok) {
         throw new FetchApiError(res.url, res.status, await res.json());
       }
 
-      return parseResponse<T>(res) as T;
+      return (await parseResponse<T>(res)) as T;
     },
     async pose<T>(path: string, body?: any, options?: RequestOptions) {
       const res = await customFetch(parseUrl(baseUrl, path, options?.params), {
         ...options,
         body: JSON.stringify(body),
-        method: "POST",
+        method: 'POST',
       });
 
       if (!res.ok) {
         throw new FetchApiError(res.url, res.status, await res.json());
       }
 
-      return parseResponse<T>(res);
+      return await parseResponse<T>(res);
     },
     async put<T>(path: string, body?: any, options?: RequestOptions) {
       const res = await customFetch(parseUrl(baseUrl, path, options?.params), {
         ...options,
         body: JSON.stringify(body),
-        method: "PUT",
+        method: 'PUT',
       });
 
       if (!res.ok) {
         throw new FetchApiError(res.url, res.status, await res.json());
       }
 
-      return parseResponse<T>(res);
+      return await parseResponse<T>(res);
     },
     async delete<T>(path: string, options?: RequestOptions) {
       const res = await customFetch(parseUrl(baseUrl, path, options?.params), {
         ...options,
-        method: "DELETE",
+        method: 'DELETE',
       });
 
       if (!res.ok) {
         throw new FetchApiError(res.url, res.status, await res.json());
       }
 
-      return parseResponse<T>(res);
+      return await parseResponse<T>(res);
     },
     async patch<T>(path: string, body?: any, options?: RequestOptions) {
       const res = await customFetch(parseUrl(baseUrl, path, options?.params), {
         ...options,
         body: JSON.stringify(body),
-        method: "PATCH",
+        method: 'PATCH',
       });
 
       if (!res.ok) {
         throw new FetchApiError(res.url, res.status, await res.json());
       }
 
-      return parseResponse<T>(res);
+      return await parseResponse<T>(res);
     },
   };
 };
