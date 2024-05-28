@@ -6,6 +6,8 @@
 - Next.js
 - Recoil
 - Tailwind CSS
+- MUI
 - Fetch API
+- React Query
 - YTS API
 - Vercel

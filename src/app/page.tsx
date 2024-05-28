@@ -1,6 +1,8 @@
 import MovieList from '@/app/_components/MovieList';
 import { apiMovies } from '@/apis/movies';
 import { Metadata } from 'next';
+import { PageResponse } from '@/models/inner/response/pageResponse';
+import { MovieResponse } from '@/models/inner/response/movieResponse';
 
 export const metadata: Metadata = {
   title: 'Home - CheoluBak Portfolio',
@@ -8,7 +10,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const movies = await apiMovies.getList(1);
+  let movies: PageResponse<MovieResponse> | undefined;
+  try {
+    movies = await apiMovies.getList(1);
+  } catch (err) {
+    movies = undefined;
+  }
+
+  if (!movies) {
+    return null;
+  }
 
   return (
     <main>
