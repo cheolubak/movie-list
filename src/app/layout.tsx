@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.css";
 import {ReactNode} from "react";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Create Next App",

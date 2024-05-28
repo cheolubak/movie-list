@@ -1,9 +1,19 @@
-import Image from "next/image";
+import { fetchApis } from "@/utils/fetchApi";
+import { ResultResponse } from "@/models/response/resultResponse";
+import { PageResponse } from "@/models/response/pageResponse";
+import { MovieResponse } from "@/models/response/movieResponse";
+import MovieList from "@/components/movie_list";
 
-export default function Home() {
+export default async function Home() {
+  const movies =
+    await fetchApis.dynamic.get<ResultResponse<PageResponse<MovieResponse>>>(
+      "movies",
+    );
+
+  console.log(movies);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-
+    <main>
+      <MovieList />
     </main>
   );
 }
