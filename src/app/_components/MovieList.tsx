@@ -43,9 +43,10 @@ function MovieList({ movies }: MovieListProps) {
     <main
       className={twclsx(
         'grid',
-        'xlg:grid-cols-6',
-        'lg:grid-cols-4',
-        'md:grid-cols-3',
+        'xlg:grid-cols-5',
+        'lg:grid-cols-3',
+        'md:grid-cols-2',
+        'sm:grid-cols-1',
         'grid-cols-2',
         'lg:gap-8',
         'gap-6',

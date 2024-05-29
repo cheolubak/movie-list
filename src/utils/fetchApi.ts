@@ -30,7 +30,12 @@ const fetchApi = (baseUrl: string) => {
       });
 
       if (!res.ok) {
-        throw new FetchApiError(res.url, res.status, await res.json());
+        throw new FetchApiError(
+          res.url,
+          res.status,
+          await parseResponse(res),
+          res.headers,
+        );
       }
 
       return (await parseResponse<T>(res)) as T;
@@ -43,7 +48,12 @@ const fetchApi = (baseUrl: string) => {
       });
 
       if (!res.ok) {
-        throw new FetchApiError(res.url, res.status, await res.json());
+        throw new FetchApiError(
+          res.url,
+          res.status,
+          await parseResponse(res),
+          res.headers,
+        );
       }
 
       return await parseResponse<T>(res);
@@ -56,7 +66,12 @@ const fetchApi = (baseUrl: string) => {
       });
 
       if (!res.ok) {
-        throw new FetchApiError(res.url, res.status, await res.json());
+        throw new FetchApiError(
+          res.url,
+          res.status,
+          await parseResponse(res),
+          res.headers,
+        );
       }
 
       return await parseResponse<T>(res);
@@ -68,7 +83,12 @@ const fetchApi = (baseUrl: string) => {
       });
 
       if (!res.ok) {
-        throw new FetchApiError(res.url, res.status, await res.json());
+        throw new FetchApiError(
+          res.url,
+          res.status,
+          await parseResponse(res),
+          res.headers,
+        );
       }
 
       return await parseResponse<T>(res);
@@ -81,7 +101,12 @@ const fetchApi = (baseUrl: string) => {
       });
 
       if (!res.ok) {
-        throw new FetchApiError(res.url, res.status, await res.json());
+        throw new FetchApiError(
+          res.url,
+          res.status,
+          await parseResponse(res),
+          res.headers,
+        );
       }
 
       return await parseResponse<T>(res);

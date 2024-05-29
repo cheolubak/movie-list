@@ -82,7 +82,7 @@ function MovieDetail({ movie }: MovieDetailProps) {
         title={movie.title_long}
         className={twclsx('w-full', 'aspect-video', 'mb-8')}
         id='player'
-        src={`http://www.youtube.com/embed/${movie.yt_trailer_code}?enablejsapi=1&origin=http://example.com`}
+        src={`http://www.youtube.com/embed/${movie.yt_trailer_code}`}
         frameBorder='0'
       />
     </main>

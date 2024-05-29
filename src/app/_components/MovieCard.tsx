@@ -21,7 +21,7 @@ function MovieCard({ movie }: MovieCardProps) {
     <Card key={movie.id}>
       <CardContent>
         <Typography
-          variant='h5'
+          variant='h2'
           color='text.secondary'
           gutterBottom
         >
