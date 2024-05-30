@@ -4,18 +4,22 @@ import { ResultResponse } from '@/models/outer/response/resultResponse';
 import { PageResponse } from '@/models/outer/response/pageResponse';
 import { MovieResponse } from '@/models/outer/response/movieResponse';
 import { isFetchApiError } from '@/utils/fetchApiError';
+import { MovieListRequest } from '@/models/request/movieListRequest';
 
 export async function GET(request: Request) {
   try {
-    const queryString = getRequestParams(request);
+    const queryString = getRequestParams<MovieListRequest>(request);
 
-    const { page } = queryString;
+    const { page, sort, genre } = queryString;
 
     const res = await fetchApis.movie.get<
       ResultResponse<PageResponse<MovieResponse>>
     >('list_movies.json', {
       params: {
         page,
+        sort_by: sort,
+        genre: genre,
+        order_by: 'desc',
       },
     });
 

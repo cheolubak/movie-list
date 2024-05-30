@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   let movies: PageResponse<MovieResponse> | undefined;
   try {
-    movies = await apiMovies.getList(1);
+    movies = await apiMovies.getList({ page: 1 });
   } catch (err) {
     movies = undefined;
   }
@@ -21,9 +21,5 @@ export default async function Home() {
     return null;
   }
 
-  return (
-    <main>
-      <MovieList movies={movies} />
-    </main>
-  );
+  return <MovieList movies={movies} />;
 }

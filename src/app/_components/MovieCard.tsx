@@ -18,10 +18,15 @@ interface MovieCardProps {
 
 function MovieCard({ movie }: MovieCardProps) {
   return (
-    <Card key={movie.id}>
+    <Card
+      key={movie.id}
+      variant='elevation'
+      elevation={6}
+    >
       <CardContent>
         <Typography
-          variant='h2'
+          variant='h5'
+          component='h2'
           color='text.secondary'
           gutterBottom
         >

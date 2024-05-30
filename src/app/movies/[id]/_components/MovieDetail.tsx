@@ -22,7 +22,9 @@ function MovieDetail({ movie }: MovieDetailProps) {
         'w-full',
         'bg-white',
         'lg:mx-auto',
-        'm-6',
+        'lg:p-6',
+        'py-6',
+        'px-3',
       )}
     >
       <div className={twclsx('w-full')}>
@@ -40,13 +42,13 @@ function MovieDetail({ movie }: MovieDetailProps) {
         )}
       >
         <MovieImage
-          className={twclsx('lg:w-[512px]', 'lg:min-w-[512px]')}
           image={movie.large_cover_image}
           title={movie.title_long}
         />
         <article>
           <Typography
-            variant='h1'
+            variant='h3'
+            component='h1'
             className={twclsx('!mb-4')}
           >
             {movie.title_long}

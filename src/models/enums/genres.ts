@@ -1,4 +1,5 @@
 export const enum Genres {
+  ALL = 'All',
   ACTION = 'Action',
   ADVENTURE = 'Adventure',
   ANIMATION = 'Animation',

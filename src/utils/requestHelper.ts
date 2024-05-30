@@ -1,4 +1,4 @@
-export const getRequestParams = (params: Request) => {
+export const getRequestParams = <T>(params: Request) => {
   const url = new URL(params.url);
-  return Object.fromEntries(url.searchParams.entries());
+  return Object.fromEntries(url.searchParams.entries()) as T;
 };

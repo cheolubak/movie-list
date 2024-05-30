@@ -7,13 +7,18 @@ import Image from 'next/image';
 interface MovieImageProps {
   image: string;
   title: string;
-  className?: string;
 }
 
-function MovieImage({ image, title, className }: MovieImageProps) {
+function MovieImage({ image, title }: MovieImageProps) {
   return (
     <Image
-      className={twclsx('w-full', 'object-contain', className)}
+      className={twclsx(
+        'w-full',
+        'object-contain',
+        'lg:w-[512px]',
+        'lg:min-w-[512px]',
+        'w-full',
+      )}
       src={image}
       alt={title}
       width={256}

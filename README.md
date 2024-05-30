@@ -9,5 +9,5 @@
 - MUI
 - Fetch API
 - React Query
-- YTS API
+- [YTS API](https://yts.mx/api#list_movies)
 - Vercel
