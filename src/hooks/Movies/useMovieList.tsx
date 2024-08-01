@@ -15,6 +15,8 @@ export const useMovieList = () => {
   const [gridCount, setGridCount] = useState<number>(4);
 
   useLayoutEffect(() => {
+    if (!width) return;
+
     if (width >= 1920) {
       setGridCount(4);
     } else if (width >= 1280) {
