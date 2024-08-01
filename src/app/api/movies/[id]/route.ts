@@ -1,7 +1,6 @@
-import { fetchApis } from '@/utils/fetchApi';
-import { ResultResponse } from '@/models/outer/response/resultResponse';
-import { MovieDetailResponse } from '@/models/outer/response/movieDetailResponse';
-import { isFetchApiError } from '@/utils/fetchApiError';
+import { getMovie } from 'data/Movies/movies';
+import { isFetchApiError } from 'data/common/utils/fetchApiError';
+import { outerToInnerDetail } from 'domains/Movies/useCases/movie.useCase';
 
 export async function GET(
   _: Request,
@@ -14,33 +13,13 @@ export async function GET(
   try {
     const { id } = params;
 
-    const res = await fetchApis.movie.get<ResultResponse<MovieDetailResponse>>(
-      'movie_details.json',
-      {
-        params: {
-          movie_id: id,
-        },
-      },
-    );
+    const { data } = await getMovie(id);
 
-    const { data, status, status_message } = res;
-
-    if (status !== 'ok') {
-      return new Response(status_message, { status: 500 });
-    }
-
-    return Response.json(data.movie);
-  } catch (err) {
-    console.error(err);
+    return Response.json(outerToInnerDetail(data));
+  } catch (err: unknown) {
     if (isFetchApiError(err)) {
-      return new Response(err.message, {
-        status: err.status,
-        headers: err.headers,
-      });
+      return new Response(err.response, { status: err.status });
     }
-
-    return new Response('Internal Server Error', {
-      status: 500,
-    });
+    return new Response('INTERNAL ERROR', { status: 500 });
   }
 }

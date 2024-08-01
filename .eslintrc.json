@@ -38,5 +38,10 @@
     "naver": true,
     "JSX": true,
     "NodeJS": true
-  }
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "tailwind.config.ts",
+    "commitlint.config.js"
+  ]
 }

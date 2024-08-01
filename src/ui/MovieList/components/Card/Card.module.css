@@ -1,0 +1,24 @@
+.title {
+    @apply font-bold;
+    @apply h-[92px];
+    @apply line-clamp-3;
+}
+
+.description {
+    @apply line-clamp-5;
+    @apply mb-4;
+    @apply h-[120px];
+}
+
+.description.empty {
+
+}
+
+.link {
+    @apply flex;
+    @apply justify-center;
+    @apply items-center;
+    @apply gap-1;
+    @apply text-blue-500;
+    @apply font-bold;
+}

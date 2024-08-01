@@ -1,0 +1,7 @@
+.back {
+    @apply text-blue-500;
+    @apply font-bold;
+    @apply mb-4;
+    @apply inline-flex;
+    @apply justify-start;
+}

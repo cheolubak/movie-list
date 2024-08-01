@@ -1,0 +1,6 @@
+.ratings {
+    @apply flex;
+    @apply justify-start;
+    @apply items-end;
+    @apply gap-2;
+}

@@ -1,0 +1,8 @@
+.list {
+    @apply grid xlg:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1;
+    @apply gap-6 lg:gap-8;
+    @apply justify-start;
+    @apply items-start;
+    @apply lg:m-8;
+    @apply lg:p-6 py-6 px-3;
+}
