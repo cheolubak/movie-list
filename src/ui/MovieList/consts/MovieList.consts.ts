@@ -32,3 +32,5 @@ export const GENRE_LIST = [
   Genres.SPORT,
   Genres.WAR,
 ];
+
+export const GRID_COL_COUNT = 4;
