@@ -1,0 +1,4 @@
+.storybook
+node_modules
+tailwind.config.ts
+commitlint.config.js

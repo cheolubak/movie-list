@@ -12,6 +12,8 @@
 $ pnpm install # 의존성 설치
 
 $ pnpm dev # 개발 서버 실행
+
+$ pnpm storybook # 스토리북 실행
 ```
 
 ## 기술 스택
@@ -27,3 +29,5 @@ $ pnpm dev # 개발 서버 실행
 - @tanstack/react-query
 
 - react-window
+
+- storybook
