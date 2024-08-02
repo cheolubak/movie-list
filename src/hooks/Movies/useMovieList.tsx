@@ -2,12 +2,10 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { movieOptionsState } from 'dataStores/recoil/selectors/movieOptionsState';
-import { MovieResponse } from 'domains/Movies/models/movieResponse';
-import { getMovieList } from 'domains/Movies/useCases/movie.useCase';
-import { PageResponse } from 'domains/models/common/pageResponse';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useWindowSize } from 'hooks/common/useWindowSize';
+import { useMovieListQuery } from 'data/Movies/queries/useMovieListQuery';
 
 export const useMovieList = () => {
   const { genre, sort } = useRecoilValue(movieOptionsState);
@@ -34,18 +32,7 @@ export const useMovieList = () => {
     hasNextPage,
     isLoading,
     refetch,
-  } = useInfiniteQuery({
-    getNextPageParam: (lastPage: PageResponse<MovieResponse>) =>
-      lastPage.nextPage,
-    initialPageParam: 0,
-    queryFn: ({ pageParam = 0 }) =>
-      getMovieList({
-        genre,
-        page: pageParam,
-        sort,
-      }),
-    queryKey: ['movies', sort, genre],
-  });
+  } = useInfiniteQuery(useMovieListQuery({ sort, genre }));
 
   useEffect(() => {
     refetch();
@@ -61,7 +48,7 @@ export const useMovieList = () => {
   const fetchNext = () => {
     console.log('fetchNextPage');
     if (hasNextPage && !isLoading) {
-      fetchNextPage();
+      fetchNextPage({ cancelRefetch: true });
     }
   };
 

@@ -12,6 +12,36 @@ import { MovieResponse } from 'domains/Movies/models/movieResponse';
 import { SCROLL_BAR_WIDTH } from 'ui/MovieList/consts/MovieList.consts';
 import { useEffect, useMemo, useRef } from 'react';
 
+const Cell = ({
+  columnIndex,
+  rowIndex,
+  data,
+  style,
+}: {
+  columnIndex: number;
+  rowIndex: number;
+  data: MovieResponse[][];
+  style: any;
+}) => {
+  const movie = data[rowIndex][columnIndex];
+
+  if (!movie) {
+    return null;
+  }
+
+  return (
+    <div
+      style={{ ...style }}
+      className={styles.cell}
+    >
+      <Card
+        key={movie.id}
+        movie={movie}
+      />
+    </div>
+  );
+};
+
 export const MovieList = () => {
   const { data, count, width, gridCount, fetchNext } = useMovieList();
 
@@ -20,36 +50,6 @@ export const MovieList = () => {
   const preppedItems = useMemo(() => {
     return prepareItemsForGrid(data, gridCount);
   }, [data, width]);
-
-  const Cell = ({
-    columnIndex,
-    rowIndex,
-    data,
-    style,
-  }: {
-    columnIndex: number;
-    rowIndex: number;
-    data: MovieResponse[][];
-    style: any;
-  }) => {
-    const movie = data[rowIndex][columnIndex];
-
-    if (!movie) {
-      return null;
-    }
-
-    return (
-      <div
-        style={{ ...style }}
-        className={styles.cell}
-      >
-        <Card
-          key={movie.id}
-          movie={movie}
-        />
-      </div>
-    );
-  };
 
   return (
     <main className={styles.container}>
@@ -98,7 +98,6 @@ export const MovieList = () => {
 
 function useRespondToColumnChange(width?: number) {
   const ref = useRef<any>();
-
   useEffect(() => {
     if (ref.current) {
       ref.current.resetAfterIndices({
