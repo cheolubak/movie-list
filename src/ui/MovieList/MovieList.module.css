@@ -4,5 +4,13 @@
     @apply justify-start;
     @apply items-stretch;
     @apply h-full;
-    @apply overflow-hidden;
+    /*@apply overflow-hidden;*/
+}
+
+.content {
+    @apply h-full;
+}
+
+.cell {
+    @apply lg:p-4 p-2
 }

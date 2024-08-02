@@ -14,16 +14,19 @@ import { Image } from 'ui/common/components/Image';
 import styles from './Card.module.css';
 
 interface Props {
-  movie: MovieResponse;
+  movie?: MovieResponse;
 }
 
 export const Card = ({ movie }: Props) => {
+  if (!movie) return null;
+
   return (
     <MUICard
       elevation={6}
       variant='elevation'
+      className={styles.card}
     >
-      <CardContent>
+      <CardContent className={styles.content}>
         <Typography
           className={styles.title}
           color='text.secondary'
@@ -46,6 +49,7 @@ export const Card = ({ movie }: Props) => {
           imgHeight={512}
           imgWidth={512}
           src={movie.medium_cover_image}
+          showHeight={512}
         />
       </CardContent>
       <CardActionArea>

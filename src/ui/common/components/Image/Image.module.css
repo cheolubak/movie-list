@@ -1,5 +1,5 @@
 .image {
-    @apply object-cover;
+    @apply object-contain;
     @apply w-full;
     @apply h-full;
 }

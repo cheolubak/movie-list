@@ -1,6 +1,16 @@
+.card {
+    @apply h-full;
+    @apply flex;
+    @apply flex-col;
+    @apply justify-between;
+}
+
+.content {
+    @apply !box-border;
+}
+
 .title {
     @apply font-bold;
-    @apply h-[92px];
     @apply line-clamp-3;
 }
 

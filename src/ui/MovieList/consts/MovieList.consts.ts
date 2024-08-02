@@ -33,4 +33,4 @@ export const GENRE_LIST = [
   Genres.WAR,
 ];
 
-export const GRID_COL_COUNT = 4;
+export const SCROLL_BAR_WIDTH = 16;

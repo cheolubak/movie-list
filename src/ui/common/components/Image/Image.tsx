@@ -34,7 +34,7 @@ export const Image = ({
         }
       }}
       src={src}
-      style={{ height: showHeight ?? imgHeight, width: showWidth ?? imgWidth }}
+      style={{ height: showHeight, width: showWidth }}
       width={imgWidth}
     />
   );

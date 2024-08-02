@@ -70,6 +70,7 @@ export const useMovieList = () => {
     count,
     fetchNext,
     isLoading,
+    width,
     hasNextPage,
     gridCount,
   };

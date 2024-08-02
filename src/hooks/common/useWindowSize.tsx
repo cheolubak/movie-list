@@ -21,8 +21,9 @@ export const useWindowSize = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000);
+    }, 150);
 
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {

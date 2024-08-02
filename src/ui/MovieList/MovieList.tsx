@@ -5,31 +5,44 @@ import { Card } from 'ui/MovieList/components/Card';
 import { Header } from 'ui/MovieList/components/Header';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import InfiniteLoader from 'react-window-infinite-loader';
-import { FixedSizeGrid as Grid } from 'react-window';
-import { GRID_COL_COUNT } from 'ui/MovieList/consts/MovieList.consts';
+import { VariableSizeGrid as Grid } from 'react-window';
 
 import styles from './MovieList.module.css';
+import { MovieResponse } from 'domains/Movies/models/movieResponse';
+import { SCROLL_BAR_WIDTH } from 'ui/MovieList/consts/MovieList.consts';
+import { useEffect, useMemo, useRef } from 'react';
 
 export const MovieList = () => {
-  const { data, count, gridCount, fetchNext } = useMovieList();
+  const { data, count, width, gridCount, fetchNext } = useMovieList();
+
+  const ref = useRespondToColumnChange(width);
+
+  const preppedItems = useMemo(() => {
+    return prepareItemsForGrid(data, gridCount);
+  }, [data, width]);
 
   const Cell = ({
     columnIndex,
     rowIndex,
+    data,
     style,
   }: {
     columnIndex: number;
     rowIndex: number;
+    data: MovieResponse[][];
     style: any;
   }) => {
-    const movie = data[rowIndex * GRID_COL_COUNT + columnIndex];
+    const movie = data[rowIndex][columnIndex];
 
     if (!movie) {
       return null;
     }
 
     return (
-      <div style={style}>
+      <div
+        style={{ ...style }}
+        className={styles.cell}
+      >
         <Card
           key={movie.id}
           movie={movie}
@@ -41,7 +54,7 @@ export const MovieList = () => {
   return (
     <main className={styles.container}>
       <Header />
-      <div className={'h-full'}>
+      <div className={styles.content}>
         <AutoSizer>
           {({ height, width }) => (
             <InfiniteLoader
@@ -49,15 +62,16 @@ export const MovieList = () => {
               itemCount={count}
               loadMoreItems={fetchNext}
             >
-              {({ onItemsRendered, ref }) => (
+              {({ onItemsRendered }) => (
                 <Grid
                   ref={ref}
                   columnCount={gridCount}
                   height={height}
-                  columnWidth={width / gridCount}
-                  rowCount={Math.ceil(data.length / gridCount)}
-                  rowHeight={781}
+                  columnWidth={() => (width - SCROLL_BAR_WIDTH) / gridCount}
+                  rowCount={preppedItems.length}
+                  rowHeight={() => 821}
                   width={width}
+                  itemData={preppedItems}
                   onItemsRendered={(gridProps) => {
                     onItemsRendered({
                       overscanStartIndex:
@@ -78,17 +92,34 @@ export const MovieList = () => {
           )}
         </AutoSizer>
       </div>
-
-      {/*<List>*/}
-      {/*  <InfinityScroll onNext={fetchNextPage}>*/}
-      {/*    {data.map((movie) => (*/}
-      {/*      <Card*/}
-      {/*        key={movie.id}*/}
-      {/*        movie={movie}*/}
-      {/*      />*/}
-      {/*    ))}*/}
-      {/*  </InfinityScroll>*/}
-      {/*</List>*/}
     </main>
   );
 };
+
+function useRespondToColumnChange(width?: number) {
+  const ref = useRef<any>();
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.resetAfterIndices({
+        columnIndex: 0,
+        rowIndex: 0,
+        shouldForceUpdate: true,
+      });
+    }
+  }, [width]);
+
+  return ref;
+}
+
+function prepareItemsForGrid<T>(items: T[], columnCount = 1) {
+  const result = [];
+  const clone = [...items];
+
+  while (clone.length) {
+    const row = clone.splice(0, columnCount);
+    result.push(row);
+  }
+
+  return result;
+}
