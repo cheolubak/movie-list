@@ -2,3 +2,4 @@
 node_modules
 tailwind.config.ts
 commitlint.config.js
+cypress

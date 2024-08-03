@@ -43,6 +43,7 @@
   "ignorePatterns": [
     "node_modules",
     "tailwind.config.ts",
-    "commitlint.config.js"
+    "commitlint.config.js",
+    "cypress.config.ts"
   ]
 }
